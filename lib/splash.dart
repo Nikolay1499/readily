@@ -12,7 +12,7 @@ class SplashScreenState extends State<SplashScreen>
 {
 
   startTime() async {
-    var _duration = new Duration(seconds: 7);
+    var _duration = new Duration(seconds: 4);
     return new Timer(_duration, checkFirstSeen);
   }
 
@@ -35,22 +35,27 @@ class SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     startTime();
+    //checkFirstSeen();
   }
   @override
   Widget build(BuildContext context) {
   return new Scaffold(
     backgroundColor: Colors.white,
-    body: new Center(
+    body: new Container(
+      color: Colors.cyan,
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children:[
-          new Image.asset('assets/splash.gif'),
           Transform.translate(
-            offset: Offset(0, 30),
+            offset: Offset(-15, 0),
+            child: new Image.asset('assets/book.png'),
+          ),
+          Transform.translate(
+            offset: Offset(0, 15),
             child:new SpinKitThreeBounce(
-              color: Colors.blue,
-              size: 75.0,
+              color: Colors.white,
+              size: 50.0,
             ),
           ),
         ]),

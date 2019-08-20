@@ -62,8 +62,7 @@ flutter:
 
   assets:
     - assets/splash.gif
-    - assets/logo.png
-    - assets/wow.png
+    - assets/book.png
 
 
   # The following line ensures that the Material Icons font is
