@@ -2,9 +2,18 @@ import 'package:flutter/material.dart';
 import 'counter.dart';
 import 'splash.dart';
 import 'camera.dart';
-import 'password.dart';
 import 'leaderboard.dart';
 import 'package:flutter/services.dart';
+/*import 'package:camera/camera.dart';
+
+CameraDescription firstCamera;
+
+Future<void> main() async {
+  final cameras = await availableCameras();
+ 
+  firstCamera = cameras[0];
+  runApp(MyApp());
+}*/
 
 void main() => runApp(MyApp());
 
@@ -12,9 +21,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]);
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -22,43 +31,11 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
-        accentColor: Colors.red,
+        accentColor: Colors.blue,
       ),
       home: SplashScreen(),
-      routes: <String, WidgetBuilder>{
-      '/CountDownTimer': (BuildContext context) => new CountDownTimer(),
-      '/CameraScreen' : (BuildContext context) => new CameraScreen(),
-      '/LeaderboardScreen' : (BuildContext context) => new LeaderboardScreen(),
-      '/PasswordScreen' : (BuildContext context) => new PasswordScreen(),
-    },
     );
   }
-}
-
-class SlideRightRoute extends PageRouteBuilder {
-  final Widget page;
-  SlideRightRoute({this.page})
-      : super(
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
-              page,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(1, 0),
-                  end: Offset.zero,
-                ).animate(animation),
-                child: child,
-              ),
-        );
 }
 
 class DrawerWidget extends StatefulWidget
@@ -131,12 +108,17 @@ class _DrawerWidgetState extends State<DrawerWidget>
               },
               onTap: () {
                 final newRouteName = "/CountDownTimer";
-                if (ModalRoute.of(context).settings.name != newRouteName)
+                if (widget.activePage != newRouteName)
                 {
                   setState(() {
                     tappedFirst = true;  
                   });
-                  Navigator.of(context).pushReplacementNamed(newRouteName);
+                  Navigator.pushReplacement(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) => CountDownTimer(),
+                    ),
+                  );
                 }
               },
               child: Container(
@@ -166,12 +148,23 @@ class _DrawerWidgetState extends State<DrawerWidget>
               },
               onTap: () {
                 final newRouteName = "/CameraScreen";
-                if (ModalRoute.of(context).settings.name != newRouteName)
+                if (widget.activePage != newRouteName)
                 {
                   setState(() {
                     tappedSecond = true;  
                   });
-                  Navigator.of(context).pushReplacementNamed(newRouteName);
+                  /*Navigator.pushReplacement(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) => CameraScreen(camera: firstCamera,),
+                    ),
+                  );*/
+                  Navigator.pushReplacement(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) => CameraScreen(),
+                    ),
+                  );
                 }
               },
               child: Container(
@@ -201,12 +194,17 @@ class _DrawerWidgetState extends State<DrawerWidget>
               },
               onTap: () {
                 final newRouteName = "/LeaderboardScreen";
-                if (ModalRoute.of(context).settings.name != newRouteName)
+                if (widget.activePage != newRouteName)
                 {
                   setState(() {
                     tappedThird = true;  
                   });
-                  Navigator.of(context).pushReplacementNamed(newRouteName);
+                  Navigator.pushReplacement(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) => LeaderboardScreen(),
+                    ),
+                  );
                 }
               },
               child: Container(

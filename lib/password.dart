@@ -1,3 +1,4 @@
+import 'package:coutner/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class PasswordScreen extends StatefulWidget {
@@ -13,7 +14,13 @@ class _PasswordScreenState extends State<PasswordScreen>
   Future confirmPassword() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('seen', true);
-    Navigator.of(context).pushReplacementNamed('/CountDownTimer');
+    Navigator.pushReplacement(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => 
+          CountDownTimer(),
+      ),
+    );
 }
 
   void checkPassword()

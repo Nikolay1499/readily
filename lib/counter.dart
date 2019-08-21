@@ -1,3 +1,4 @@
+import 'package:coutner/camera.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'dart:math' as math;
@@ -33,7 +34,13 @@ class _CountDownTimerState extends State<CountDownTimer>
         if (Vibration.hasVibrator() != null)
           Vibration.vibrate(duration: 1000);
         paused = true;
-        Navigator.of(context).pushReplacementNamed('/CameraScreen');
+        Navigator.pushReplacement(
+          context, 
+          MaterialPageRoute(
+            //builder: (context) => CameraScreen(camera: firstCamera),
+            builder: (context) => CameraScreen(),
+          ),
+        );
       }
     });
   }
