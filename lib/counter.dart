@@ -37,8 +37,7 @@ class _CountDownTimerState extends State<CountDownTimer>
         Navigator.pushReplacement(
           context, 
           MaterialPageRoute(
-            //builder: (context) => CameraScreen(camera: firstCamera),
-            builder: (context) => CameraScreen(),
+            builder: (context) => CameraScreen(camera: firstCamera),
           ),
         );
       }

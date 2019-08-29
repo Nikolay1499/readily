@@ -4,7 +4,7 @@ import 'splash.dart';
 import 'camera.dart';
 import 'leaderboard.dart';
 import 'package:flutter/services.dart';
-/*import 'package:camera/camera.dart';
+import 'package:camera/camera.dart';
 
 CameraDescription firstCamera;
 
@@ -13,9 +13,7 @@ Future<void> main() async {
  
   firstCamera = cameras[0];
   runApp(MyApp());
-}*/
-
-void main() => runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -153,16 +151,10 @@ class _DrawerWidgetState extends State<DrawerWidget>
                   setState(() {
                     tappedSecond = true;  
                   });
-                  /*Navigator.pushReplacement(
-                    context, 
-                    MaterialPageRoute(
-                      builder: (context) => CameraScreen(camera: firstCamera,),
-                    ),
-                  );*/
                   Navigator.pushReplacement(
                     context, 
                     MaterialPageRoute(
-                      builder: (context) => CameraScreen(),
+                      builder: (context) => CameraScreen(camera: firstCamera,),
                     ),
                   );
                 }
