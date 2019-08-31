@@ -6,7 +6,7 @@ import 'dart:math' as math;
 
 class WordsScreen extends StatefulWidget {
 
-  final VisionText readText;
+  final String readText;
   final List<String> existingList;
   WordsScreen({Key key, @required this.readText, 
                       @required this.existingList}) : super(key: key);
@@ -27,19 +27,24 @@ class _WordsScreenState extends State<WordsScreen>
     second = -1;
     list = widget.existingList;
     if(widget.readText != null)
-      for (TextBlock block in widget.readText.blocks)
-        for (TextLine line in block.lines)
-          for (TextElement word in line.elements)
-            if(word.text != null)
-            {
-              print(word.text);
-              list.add(word.text);
-            }
+    {
+      final newRows = widget.readText.split("\n");
+      for(var row in newRows)
+      {
+        final newWords = row.split(" ");
+        for(var word in newWords)
+          if(word != null)
+          {
+            list.add(word);
+          }
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey,
       body:
         Transform.rotate(
           angle: 2 * math.pi,

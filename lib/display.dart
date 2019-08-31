@@ -1,9 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'camera.dart';
 import 'main.dart';
 import 'words.dart';
+import 'package:http/http.dart' as http;
+import 'models.dart';
+import 'key.dart';
+
+
+
 
 class DisplayPictureScreen extends StatefulWidget {
 
@@ -17,7 +24,8 @@ class DisplayPictureScreen extends StatefulWidget {
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
-  Future readText() async {
+  //Used for onDevice OCR
+  /*Future readText() async {
     FirebaseVisionImage ourImage = FirebaseVisionImage.fromFile(widget.imagePath);
     TextRecognizer recognizeText = FirebaseVision.instance.textRecognizer();
     VisionText readText = await recognizeText.processImage(ourImage);
@@ -31,6 +39,45 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       ),
     );
     
+  }*/
+
+  Future readText() async
+  {
+    String base64Image = base64Encode(widget.imagePath.readAsBytesSync());
+    String body = """{
+      'requests': [
+        {
+          'image': {
+            'content' : '$base64Image'
+          },
+          'features': [
+            {
+              'type': 'DOCUMENT_TEXT_DETECTION'
+            }
+          ]
+        }
+      ]
+    }""";
+
+    http.Response res = await http
+      .post(
+        APIKey.getKey(),
+        body: body
+      );
+
+ 
+    final jsonResponse = json.decode(res.body);
+    Responses responses = new Responses.fromJson(jsonResponse);
+    print(responses.responses[0].textAnnotations[0].description);
+
+    Navigator.pushReplacement(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => 
+          WordsScreen(readText: responses.responses[0].textAnnotations[0].description, 
+          existingList: widget.existingList == null ? [] : widget.existingList,),
+      ),
+    );
   }
 
 
