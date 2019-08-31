@@ -6,14 +6,15 @@ class Responses{
   factory Responses.fromJson(Map<String, dynamic> parsedJson){
 
     var list = parsedJson['responses'] as List;
+    if(!list[0].toString().contains("textAnnotations:"))
+      return null;
     List<TextAnnotations> responses = list.map((i) => TextAnnotations.fromJson(i)).toList();
-
 
     return Responses(responses: responses);
   }
 }
 
-class TextAnnotations{// add others
+class TextAnnotations{
   List<Description> textAnnotations;
 
   TextAnnotations({this.textAnnotations});

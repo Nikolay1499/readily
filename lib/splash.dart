@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'password.dart';
-import 'counter.dart';
+import 'start.dart';
 
+SharedPreferences prefs;
 class SplashScreen extends StatefulWidget {
   @override
   SplashScreenState createState() => SplashScreenState();
@@ -20,14 +21,13 @@ class SplashScreenState extends State<SplashScreen>
 
 
   Future checkFirstSeen() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //prefs.setBool('seen', false);
+    prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
     if (_seen)
       Navigator.pushReplacement(
         context, 
         MaterialPageRoute(
-          builder: (context) => CountDownTimer(),
+          builder: (context) => StartScreen(),
         ),
       );
     else

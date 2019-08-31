@@ -5,6 +5,8 @@ import 'camera.dart';
 import 'leaderboard.dart';
 import 'package:flutter/services.dart';
 import 'package:camera/camera.dart';
+import 'login.dart';
+import 'start.dart';
 
 CameraDescription firstCamera;
 
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'Pattaya',
+        fontFamily: 'Readily',
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
@@ -50,6 +52,7 @@ class _DrawerWidgetState extends State<DrawerWidget>
   bool tappedFirst = false;
   bool tappedSecond = false;
   bool tappedThird = false;
+  bool tappedFourth = false;
 
   @override
   void initState()
@@ -79,13 +82,13 @@ class _DrawerWidgetState extends State<DrawerWidget>
                         shape: BoxShape.circle,
                       ),
                       child: Center(
-                        child: Text("Н", 
+                        child: Text(name[0], 
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 40))),
                     ),
                     Transform.translate(
                       offset: Offset(0, 15),
-                      child: Text("Николай", style: TextStyle(fontSize: 20))),
+                      child: Text(name, style: TextStyle(fontSize: 20))),
                   ])),
               color: Colors.tealAccent,),
             GestureDetector(
@@ -207,6 +210,53 @@ class _DrawerWidgetState extends State<DrawerWidget>
                   title: Text("Класация"),
                 ),
               ),  
+            ),
+            new Expanded(
+              child: new Align(
+                alignment: Alignment.bottomCenter,
+                child:
+                  GestureDetector(
+                    onTapDown: (TapDownDetails details) {
+                      setState(() {
+                        tappedFourth = true;  
+                      });
+                    },
+                    onTapUp: (TapUpDetails details) {
+                      setState(() {
+                        tappedFourth = false;  
+                      });
+                    },
+                    onTapCancel: () {
+                      setState(() {
+                        tappedFourth = false;  
+                      });
+                    },
+                    onTap: () {
+                      final newRouteName = "/StartScreen";
+                      if (widget.activePage != newRouteName)
+                      {
+                        setState(() {
+                          tappedFourth = true;  
+                        });
+                        signOutGoogle();
+                        Navigator.pushReplacement(
+                          context, 
+                          MaterialPageRoute(
+                            builder: (context) => StartScreen(),
+                          ),
+                        );
+                      }
+                    },
+                    child: Container(
+                      color: tappedFourth ? Colors.cyanAccent : 
+                        (widget.activePage == "/StartScreen" ? Colors.grey : Colors.white),
+                      child: ListTile(
+                        leading: Icon(Icons.reply),
+                        title: Text("Изход"),
+                      ),
+                    ),  
+                  ),
+              ),
             ),
           ],
         ),

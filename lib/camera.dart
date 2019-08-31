@@ -45,7 +45,7 @@ class _CameraScreenState extends State<CameraScreen> {
     
   
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Colors.cyan,
       drawer: DrawerWidget(activePage: "/CameraScreen",),
       body: Transform.translate(
         offset: Offset(0, 24),

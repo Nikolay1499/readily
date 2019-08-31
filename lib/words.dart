@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'camera.dart';
 import 'main.dart';
 import 'dart:math' as math;
@@ -44,7 +43,8 @@ class _WordsScreenState extends State<WordsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      drawer:  DrawerWidget(activePage: "/WordsScreen",),
+      backgroundColor: Colors.cyan,
       body:
         Transform.rotate(
           angle: 2 * math.pi,
@@ -116,4 +116,9 @@ class _WordsScreenState extends State<WordsScreen>
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+
+  @override
+    void dispose() {
+      super.dispose();
+    }
 }
