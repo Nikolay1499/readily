@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 import 'dart:math' as math;
 import 'package:vibration/vibration.dart';
+import 'start.dart';
+
+AnimationController controller;
 
 class CountDownTimer extends StatefulWidget {
   @override
@@ -11,7 +14,6 @@ class CountDownTimer extends StatefulWidget {
 
 class _CountDownTimerState extends State<CountDownTimer> 
     with TickerProviderStateMixin {
-  AnimationController controller;
   bool paused = false;
   String get timerString {
     Duration duration = controller.isAnimating || paused ?
@@ -23,6 +25,7 @@ class _CountDownTimerState extends State<CountDownTimer>
   @override
   void initState() {
     super.initState();
+    print(selectedType);
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 5),
@@ -83,6 +86,10 @@ class _CountDownTimerState extends State<CountDownTimer>
                             child: Stack(
                               children: <Widget>[
                                 Positioned.fill(
+                                  left: 15,
+                                  right: 15,
+                                  top: 15,
+                                  bottom: 15,
                                   child: CustomPaint(
                                       painter: CustomTimerPainter(
                                         animation: controller,
@@ -99,18 +106,26 @@ class _CountDownTimerState extends State<CountDownTimer>
                                     crossAxisAlignment:
                                     CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      Text(
-                                        "Оставащо време",
-                                        style: TextStyle(
-                                          fontSize: 25.0,
-                                          color: Colors.white),
+                                      Transform.translate(
+                                        offset: Offset(0, 15),
+                                        child: Text(
+                                          "Оставащо време",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.white),
+                                        ),
                                       ),
-                                      Text(
-                                        timerString,
-                                        style: TextStyle(
-                                          fontFamily: 'LcDova',
-                                          fontSize: 112.0,
-                                          color: Colors.white),
+                                      
+                                      Transform.translate(
+                                        offset: Offset(0, -10),
+                                        child: Text(
+                                          timerString,
+                                          style: TextStyle(
+                                            //fontFamily: 'LcDova',
+                                            fontFamily: 'Readily',
+                                            fontSize: 80.0,
+                                            color: Colors.white),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -145,7 +160,8 @@ class _CountDownTimerState extends State<CountDownTimer>
                                   (!paused ? Icons.pause
                                   : Icons.play_arrow) : Icons.play_arrow),
                               label: Text(controller.isAnimating ? 
-                                (!paused ? "Пауза" : "Старт") : "Старт"));
+                                (!paused ? "Пауза" : "Старт") : "Старт", 
+                                  style: TextStyle(fontSize: 30),));
                           }),
                     ],
                   ),

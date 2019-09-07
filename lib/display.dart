@@ -9,7 +9,54 @@ import 'package:http/http.dart' as http;
 import 'models.dart';
 import 'key.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:connectivity/connectivity.dart';
 
+  Future<bool> checkInternet() async
+  {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      return true;
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      return true;
+    }
+    else
+      return false;
+  }
+
+  Future<void> noInternetPanel(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Проблем',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 50,
+            ),
+          ),
+          content: Text('Няма връзка с интернет. Моля свържете се ' 
+                      + 'с WiFi или мобилен интернет и опитайте отново!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 35,
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('ОК',
+                style: TextStyle(
+                  fontSize: 40,
+                ),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 
 class DisplayPictureScreen extends StatefulWidget {
@@ -25,6 +72,9 @@ class DisplayPictureScreen extends StatefulWidget {
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   bool isWaiting = false;
+
+
+
 
   //Used for onDevice OCR
   /*Future readText() async {
@@ -97,44 +147,46 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
 
   Future<void> _ackAlert(BuildContext context) {
-  return showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Проблем',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 50,
-          ),
-        ),
-        content: Text('Не беше намерен текст в тази снимка! Моля снимайте отново!',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 35,
-          ),
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('ОК',
-              style: TextStyle(
-                fontSize: 40,
-              ),
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Проблем',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 50,
             ),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context, 
-                MaterialPageRoute(
-                  builder: (context) => 
-                    CameraScreen(camera: firstCamera, existingList: widget.existingList),
-                ),
-              );
-            },
           ),
-        ],
-      );
-    },
-  );
-}
+          content: Text('Не беше намерен текст в тази снимка! Моля снимайте отново!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 35,
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('ОК',
+                style: TextStyle(
+                  fontSize: 40,
+                ),
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context, 
+                  MaterialPageRoute(
+                    builder: (context) => 
+                      CameraScreen(camera: firstCamera, existingList: widget.existingList),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+    
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +233,15 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
             children: [
               FloatingActionButton(
                 child: Icon(Icons.check),
-                onPressed: readText,
+                onPressed: () {
+                  checkInternet().then((intenet) {
+                    if (intenet != null && intenet) {
+                      readText();
+                    }
+                    else
+                      noInternetPanel(context);
+                  });
+                },
                 heroTag: "textTag",
               ),
               SizedBox(width: 100),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'words.dart';
 import 'main.dart';
+import 'counter.dart';
 
 class CameraScreen extends StatefulWidget {
   final CameraDescription camera;
@@ -27,6 +28,8 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
+    if(controller.isAnimating)
+      controller.stop();
     _controller = CameraController(
       widget.camera,
       ResolutionPreset.medium,

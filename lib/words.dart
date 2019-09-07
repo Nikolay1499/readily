@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'camera.dart';
 import 'main.dart';
-import 'dart:math' as math;
 
 class WordsScreen extends StatefulWidget {
 
@@ -46,52 +45,14 @@ class _WordsScreenState extends State<WordsScreen>
       drawer:  DrawerWidget(activePage: "/WordsScreen",),
       backgroundColor: Colors.cyan,
       body:
-        Transform.rotate(
-          angle: 2 * math.pi,
-          child: Container(
-            alignment: Alignment.center,
-            child: (ListView(
-              padding: const EdgeInsets.all(40.0),
+        Transform.translate(
+          offset: Offset(0, 25),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(left: 120.0, right: 120),
+            child: (Column(
               children: [
                 for(int i = 0; i < list.length; i++)
-                  GestureDetector(
-                    child: Container(
-                      color: (i == first || i == second) 
-                        ? Colors.red : Colors.grey,
-                      padding: const EdgeInsets.all(40.0),
-                      alignment: Alignment.center,
-                      child: Text(list[i], style: TextStyle(fontSize: 30)),
-                    ),
-                    onTap: (){
-                      if(first == -1)
-                        setState(() {
-                          first = i;
-                        }); 
-                      else if(second == -1 && i != first)
-                        setState(() {
-                          second = i;
-                        }); 
-                      else
-                      {
-                        if(i == first)
-                          setState(() {
-                            first = -1;
-                          });
-                        else if(i == second)
-                          setState(() {
-                            second = -1;
-                          });
-                        else if(second == -1 && i == first)
-                          setState(() {
-                            first = -1;
-                          });
-                        else
-                          setState(() {
-                            second = i;
-                          });
-                      }
-                    },
-                  ),
+                  wordList(i),
                 Text((second != -1 && first != -1) 
                   ? ((second - first).abs() + 1).toString() : "", 
                   style: TextStyle(fontSize: 30)),
@@ -121,4 +82,47 @@ class _WordsScreenState extends State<WordsScreen>
     void dispose() {
       super.dispose();
     }
+
+
+  Widget wordList(int i)
+  {
+    return GestureDetector(
+      child: Container(
+        height: 40,
+        color: (i == first || i == second) 
+          ? Colors.red : Colors.grey,
+        alignment: Alignment.center,
+        child: Text(list[i], style: TextStyle(fontSize: 18)),
+      ),
+      onTap: (){
+        if(first == -1)
+          setState(() {
+            first = i;
+          }); 
+        else if(second == -1 && i != first)
+          setState(() {
+            second = i;
+          }); 
+        else
+        {
+          if(i == first)
+            setState(() {
+              first = -1;
+            });
+          else if(i == second)
+            setState(() {
+              second = -1;
+            });
+          else if(second == -1 && i == first)
+            setState(() {
+              first = -1;
+            });
+          else
+            setState(() {
+              second = i;
+            });
+        }
+      },
+    );          
+  }
 }

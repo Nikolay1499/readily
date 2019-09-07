@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'password.dart';
 import 'start.dart';
@@ -15,7 +14,7 @@ class SplashScreenState extends State<SplashScreen>
 {
 
   startTime() async {
-    var _duration = new Duration(seconds: 4);
+    var _duration = new Duration(seconds: 0);
     return new Timer(_duration, checkFirstSeen);
   }
 
@@ -47,7 +46,7 @@ class SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.white,
+      /*backgroundColor: Colors.white,
       body: new Container(
         color: Colors.cyan,
         child: new Column(
@@ -66,7 +65,7 @@ class SplashScreenState extends State<SplashScreen>
               ),
             ),
           ]),
-      ),
+      ),*/
     );
   }
 

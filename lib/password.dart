@@ -1,4 +1,4 @@
-import 'package:coutner/counter.dart';
+import 'package:coutner/start.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class PasswordScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _PasswordScreenState extends State<PasswordScreen>
       context, 
       MaterialPageRoute(
         builder: (context) => 
-          CountDownTimer(),
+          StartScreen(),
       ),
     );
 }
@@ -51,9 +51,14 @@ class _PasswordScreenState extends State<PasswordScreen>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text("Моля въведете идентификационния код",
-            style: TextStyle(fontSize: 48),
+            style: TextStyle(
+              fontSize: 48,
+              height: 0.65,
+              color: Colors.white,
+            ),
             textAlign: TextAlign.center,
           ),
+          SizedBox(height: 30,),
           TextField(
             controller: myController,
             decoration: InputDecoration(
@@ -66,9 +71,25 @@ class _PasswordScreenState extends State<PasswordScreen>
             ),
           ),
           RaisedButton(
-            child: Text("Изпрати"),
-            onPressed: checkPassword,
-          ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+                color: Colors.cyan[500],
+                onPressed: checkPassword,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Container(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Text(
+                          'Изпрати',
+                          style: TextStyle(
+                            fontSize: 40,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    ),
+                  ),
+                ),
         ],
       ),
     ),

@@ -78,19 +78,24 @@ class _DrawerWidgetState extends State<DrawerWidget>
                       width: 90.0,
                       height: 90.0,
                       decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: Colors.yellow[700],
                         shape: BoxShape.circle,
                       ),
                       child: Center(
-                        child: Text(name[0], 
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 40))),
+                        child: Transform.translate(
+                          offset: Offset(0, 10),
+                          child: Text(name[0], 
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 80)
+                          ),
+                        ),
+                      ),
                     ),
                     Transform.translate(
                       offset: Offset(0, 15),
-                      child: Text(name, style: TextStyle(fontSize: 20))),
+                      child: Text(name, style: TextStyle(fontSize: 40))),
                   ])),
-              color: Colors.tealAccent,),
+              color: Colors.cyan,),
             GestureDetector(
               onTapDown: (TapDownDetails details) {
                 setState(() {
@@ -124,10 +129,18 @@ class _DrawerWidgetState extends State<DrawerWidget>
               },
               child: Container(
                 color: tappedFirst ? Colors.cyanAccent : 
-                  (widget.activePage == "/CountDownTimer" ? Colors.grey : Colors.white),
+                  (widget.activePage == "/CountDownTimer" ? Colors.grey[300]  : Colors.white),
                 child: ListTile(
+                  contentPadding: EdgeInsets.only(left: 12, right: 0),
                   leading: Icon(Icons.timer),
-                  title: Text("Засечи"),
+                  title: Transform.translate(
+                    offset: Offset(-15, 0),
+                    child: Text("Засечи",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                  ), 
                 ),
               ),
             ),
@@ -164,10 +177,19 @@ class _DrawerWidgetState extends State<DrawerWidget>
               },
               child: Container(
                 color: tappedSecond ? Colors.cyanAccent :
-                  (widget.activePage == "/CameraScreen" ? Colors.grey : Colors.white),
+                  (widget.activePage == "/CameraScreen" ? Colors.grey[300] : Colors.white),
                 child: ListTile(
+                  contentPadding: EdgeInsets.only(left: 12, right: 0),
                   leading: Icon(Icons.camera_alt),
-                  title: Text("Снимай"),
+                  title: Transform.translate(
+                    offset: Offset(-15, 0),
+                    child: Text("Снимай",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                  ), 
+                  
                 ),
               ),
             ),
@@ -204,10 +226,19 @@ class _DrawerWidgetState extends State<DrawerWidget>
               },
               child: Container(
                 color: tappedThird ? Colors.cyanAccent : 
-                  (widget.activePage == "/LeaderboardScreen" ? Colors.grey : Colors.white),
+                  (widget.activePage == "/LeaderboardScreen" ? Colors.grey[300]  : Colors.white),
                 child: ListTile(
+                  contentPadding: EdgeInsets.only(left: 12, right: 0),
                   leading: Icon(Icons.star),
-                  title: Text("Класация"),
+                  title: Transform.translate(
+                    offset: Offset(-15, 0),
+                    child: Text("Класация",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                  ), 
+                  
                 ),
               ),  
             ),
@@ -249,10 +280,18 @@ class _DrawerWidgetState extends State<DrawerWidget>
                     },
                     child: Container(
                       color: tappedFourth ? Colors.cyanAccent : 
-                        (widget.activePage == "/StartScreen" ? Colors.grey : Colors.white),
+                        (widget.activePage == "/StartScreen" ? Colors.grey[300]  : Colors.white),
                       child: ListTile(
+                        contentPadding: EdgeInsets.only(left: 12, right: 0),
                         leading: Icon(Icons.reply),
-                        title: Text("Изход"),
+                        title: Transform.translate(
+                          offset: Offset(-10, 0),
+                          child: Text("Изход",
+                            style: TextStyle(
+                              fontSize: 28,
+                            ),
+                          ),
+                        ), 
                       ),
                     ),  
                   ),
