@@ -28,7 +28,7 @@ class _CountDownTimerState extends State<CountDownTimer>
     print(selectedType);
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 5),
+      duration: Duration(seconds: 60),
     );
     controller.addStatusListener((status) 
     {

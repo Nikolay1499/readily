@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'camera.dart';
 import 'main.dart';
+import 'firestore.dart';
 
 class WordsScreen extends StatefulWidget {
 
@@ -31,7 +32,7 @@ class _WordsScreenState extends State<WordsScreen>
       {
         final newWords = row.split(" ");
         for(var word in newWords)
-          if(word != null)
+          if(word != null || word != "")
           {
             list.add(word);
           }
@@ -55,14 +56,44 @@ class _WordsScreenState extends State<WordsScreen>
                   wordList(i),
                 Text((second != -1 && first != -1) 
                   ? ((second - first).abs() + 1).toString() : "", 
-                  style: TextStyle(fontSize: 30)),
+                  style: TextStyle(fontSize: 30,)),
               ],
             ))
           ),
         ),
-        
-      floatingActionButton: 
+      
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton:
+        (second != -1 && first != -1)?
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FloatingActionButton(
+              heroTag: "addPhoto",
+              child: Icon(Icons.add_a_photo, size: 20,),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context, 
+                  MaterialPageRoute(
+                    builder: (context) => 
+                      CameraScreen(camera: firstCamera, existingList: list),
+                  ),
+                );
+              },
+            ),
+            SizedBox(width: 100,),
+            FloatingActionButton(
+              heroTag: "getResult",
+              child: Icon(Icons.public, size: 20,),
+              onPressed: () {
+                addToArrayRecord((second - first).abs() + 1);
+              },
+            ),
+          ],
+        )
+        :
         FloatingActionButton(
+          heroTag: "addPhoto",
           child: Icon(Icons.add_a_photo, size: 20,),
           onPressed: () {
             Navigator.pushReplacement(
@@ -74,7 +105,6 @@ class _WordsScreenState extends State<WordsScreen>
             );
           },
         ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -85,14 +115,20 @@ class _WordsScreenState extends State<WordsScreen>
 
 
   Widget wordList(int i)
-  {
+  { 
+    print(list[i] == "");
     return GestureDetector(
       child: Container(
         height: 40,
         color: (i == first || i == second) 
           ? Colors.red : Colors.grey,
         alignment: Alignment.center,
-        child: Text(list[i], style: TextStyle(fontSize: 18)),
+        child: Text(list[i], 
+          style: TextStyle(
+            fontSize: 18,
+            fontFamily: "Roboro"
+          ),
+        ),
       ),
       onTap: (){
         if(first == -1)

@@ -3,6 +3,8 @@ import 'login.dart';
 import 'splash.dart';
 import 'counter.dart';
 import 'display.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'firestore.dart';
 
 String selectedType;
 
@@ -19,7 +21,6 @@ class _StartScreenState extends State<StartScreen> {
     '3 клас',
     '4 клас'
   ];
-
 
   Future<void> _ackAlert(BuildContext context) {
     return showDialog<void>(
@@ -153,15 +154,25 @@ class _StartScreenState extends State<StartScreen> {
                         )
                       :
                         signInWithGoogle().whenComplete(() {
-                          prefs.setString("Name", name);
-                          prefs.setString("Email", email);
-                          prefs.setString("URL", imageUrl);
-                          Navigator.pushReplacement(
-                            context, 
-                            MaterialPageRoute(
-                              builder: (context) => CountDownTimer(),
-                            ),
-                          );
+                          if(imageUrl != null)
+                          {
+                            prefs.setString("Name", name);
+                            prefs.setString("Email", email);
+                            prefs.setString("URL", imageUrl);
+                            final DocumentReference documentReference =
+                              Firestore.instance.collection("leaderboard").document(email);
+                            documentReference.snapshots().listen((datasnapshot) {
+                              if (!datasnapshot.exists)
+                                createRecord();
+                            });
+                            Navigator.pushReplacement(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) => CountDownTimer(),
+                              ),
+                            );
+                          }
+                          
                         });
                       }
                     }

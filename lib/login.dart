@@ -48,5 +48,6 @@ void signOutGoogle() async{
   prefs.setString("Email", null);
   prefs.setString("URL", null);
   await googleSignIn.signOut();
+  imageUrl = null;
 }
 
