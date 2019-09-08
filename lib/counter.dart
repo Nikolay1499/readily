@@ -111,7 +111,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                                         child: Text(
                                           "Оставащо време",
                                           style: TextStyle(
-                                            fontSize: 50,
+                                            fontSize: 55,
                                             color: Colors.white),
                                         ),
                                       ),
@@ -121,8 +121,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                                         child: Text(
                                           timerString,
                                           style: TextStyle(
-                                            //fontFamily: 'LcDova',
-                                            fontFamily: 'Readily',
+                                            fontFamily: 'LcDova',
                                             fontSize: 80.0,
                                             color: Colors.white),
                                         ),
@@ -159,9 +158,16 @@ class _CountDownTimerState extends State<CountDownTimer>
                                 Icon(controller.isAnimating ? 
                                   (!paused ? Icons.pause
                                   : Icons.play_arrow) : Icons.play_arrow),
-                              label: Text(controller.isAnimating ? 
-                                (!paused ? "Пауза" : "Старт") : "Старт", 
-                                  style: TextStyle(fontSize: 30),));
+                              label:
+                                Transform.translate(
+                                  offset: Offset(0, 3),
+                                  child: Text(controller.isAnimating ? 
+                                        (!paused ? "Пауза" : "Старт") : "Старт", 
+                                    style: TextStyle(fontSize: 30),
+                                  ), 
+                                ), 
+                                  
+                            );
                           }),
                     ],
                   ),

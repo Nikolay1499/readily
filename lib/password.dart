@@ -52,24 +52,35 @@ class _PasswordScreenState extends State<PasswordScreen>
         children: [
           Text("Моля въведете идентификационния код",
             style: TextStyle(
-              fontSize: 48,
-              height: 0.65,
+              fontSize: 60,
+              height: 0.80,
               color: Colors.white,
             ),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 30,),
-          TextField(
-            controller: myController,
-            decoration: InputDecoration(
+          Container(
+            color: Colors.cyan[100],
+            width: 330,
+            height: 60,
+            child: TextField(
+              style: TextStyle(
+                fontSize: 52,
+              ),
+              controller: myController,
+              decoration: InputDecoration.collapsed(
+                hintText: "",
+              ),
+              
             ),
           ),
           Text(wrongPass ? "Невалиден код": "",
             style: TextStyle(
               color: Colors.red,
-              fontSize: 20,
+              fontSize: 54,
             ),
           ),
+          SizedBox(height: 40,),
           RaisedButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
                 color: Colors.cyan[500],

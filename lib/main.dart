@@ -92,8 +92,8 @@ class _DrawerWidgetState extends State<DrawerWidget>
                       ),
                     ),
                     Transform.translate(
-                      offset: Offset(0, 15),
-                      child: Text(name, style: TextStyle(fontSize: 40))),
+                      offset: Offset(0, 10),
+                      child: Text(name, style: TextStyle(fontSize: 35))),
                   ])),
               color: Colors.cyan,),
             GestureDetector(

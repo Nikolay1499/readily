@@ -46,7 +46,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
       builder: (context, snapshot) {
         if (!snapshot.hasData) 
           return LinearProgressIndicator();
-
+        if(snapshot.hasError)
+          print(snapshot.error);
         return buildList(context, snapshot.data.documents);
       },
     );
@@ -69,10 +70,11 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
       counter.value = index + 1;
     }
     return Padding(
-      key: ValueKey(record.name),
+      key: ValueKey(index),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
         child: ListTile(
+          key: ValueKey(index),
           leading: Transform.translate(
             offset: Offset(-3, 5),
             child: getIndex(index),

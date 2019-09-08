@@ -10,6 +10,7 @@ import 'models.dart';
 import 'key.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:connectivity/connectivity.dart';
+import 'crop.dart';
 
   Future<bool> checkInternet() async
   {
@@ -244,7 +245,23 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                 },
                 heroTag: "textTag",
               ),
-              SizedBox(width: 100),
+              SizedBox(width: 40),
+              FloatingActionButton(
+                heroTag: "crop",
+                onPressed: (){
+                  Navigator.pushReplacement(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) => 
+                        CropScreen(image: widget.imagePath, 
+                              existingList: widget.existingList,),
+                    ),
+                  );
+                },
+                tooltip: 'Crop image',
+                child: Icon(Icons.crop),
+              ),
+              SizedBox(width: 40),
               FloatingActionButton(
                 heroTag: "back",
                 child: Icon(Icons.clear),

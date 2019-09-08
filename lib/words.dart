@@ -40,17 +40,67 @@ class _WordsScreenState extends State<WordsScreen>
     }
   }
 
+  Widget wordList(int i)
+  { 
+    print(list[i] == "");
+    return GestureDetector(
+      child: Container(
+        height: 40,
+        color: (i == first || i == second) 
+          ? Colors.red : Colors.grey,
+        alignment: Alignment.center,
+        child: Text(list[i], 
+          style: TextStyle(
+            fontSize: 18,
+            fontFamily: "Roboro"
+          ),
+        ),
+      ),
+      onTap: (){
+        if(first == -1)
+          setState(() {
+            first = i;
+          }); 
+        else if(second == -1 && i != first)
+          setState(() {
+            second = i;
+          }); 
+        else
+        {
+          if(i == first)
+            setState(() {
+              first = -1;
+            });
+          else if(i == second)
+            setState(() {
+              second = -1;
+            });
+          else if(second == -1 && i == first)
+            setState(() {
+              first = -1;
+            });
+          else
+            setState(() {
+              second = i;
+            });
+        }
+      },
+    );          
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer:  DrawerWidget(activePage: "/WordsScreen",),
+      drawer: DrawerWidget(activePage: "/WordsScreen",),
       backgroundColor: Colors.cyan,
       body:
         Transform.translate(
           offset: Offset(0, 25),
           child: SingleChildScrollView(
             padding: const EdgeInsets.only(left: 120.0, right: 120),
-            child: (Column(
+            child: (Wrap(
               children: [
                 for(int i = 0; i < list.length; i++)
                   wordList(i),
@@ -114,51 +164,5 @@ class _WordsScreenState extends State<WordsScreen>
     }
 
 
-  Widget wordList(int i)
-  { 
-    print(list[i] == "");
-    return GestureDetector(
-      child: Container(
-        height: 40,
-        color: (i == first || i == second) 
-          ? Colors.red : Colors.grey,
-        alignment: Alignment.center,
-        child: Text(list[i], 
-          style: TextStyle(
-            fontSize: 18,
-            fontFamily: "Roboro"
-          ),
-        ),
-      ),
-      onTap: (){
-        if(first == -1)
-          setState(() {
-            first = i;
-          }); 
-        else if(second == -1 && i != first)
-          setState(() {
-            second = i;
-          }); 
-        else
-        {
-          if(i == first)
-            setState(() {
-              first = -1;
-            });
-          else if(i == second)
-            setState(() {
-              second = -1;
-            });
-          else if(second == -1 && i == first)
-            setState(() {
-              first = -1;
-            });
-          else
-            setState(() {
-              second = i;
-            });
-        }
-      },
-    );          
-  }
+  
 }
