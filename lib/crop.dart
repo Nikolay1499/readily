@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/rendering.dart';
 import 'package:image_crop/image_crop.dart';
 import 'package:flutter/material.dart';
-import 'package:coutner/display.dart';
+import 'package:readily/display.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 

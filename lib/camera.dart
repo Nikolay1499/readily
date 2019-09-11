@@ -1,12 +1,12 @@
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
-import 'package:coutner/display.dart';
+import 'package:readily/display.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:coutner/words.dart';
-import 'package:coutner/main.dart';
-import 'package:coutner/counter.dart';
+import 'package:readily/words.dart';
+import 'package:readily/main.dart';
+import 'package:readily/counter.dart';
 
 class CameraScreen extends StatefulWidget {
   final CameraDescription camera;

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coutner/record.dart';
-import 'package:coutner/login.dart';
+import 'package:readily/record.dart';
+import 'package:readily/login.dart';
 
 void createRecord(String grade) async {
   List<int> newList = new List<int>();

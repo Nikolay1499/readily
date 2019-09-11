@@ -1,4 +1,4 @@
-package com.example.coutner;
+package com.niko.readily;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:coutner/record.dart';
-import 'package:coutner/leaderboard.dart';
+import 'package:readily/record.dart';
+import 'package:readily/leaderboard.dart';
 
 class PersonalScreen extends StatefulWidget {
   final int place;

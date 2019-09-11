@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:coutner/counter.dart';
-import 'package:coutner/splash.dart';
-import 'package:coutner/camera.dart';
-import 'package:coutner/leaderboard.dart';
+import 'package:readily/counter.dart';
+import 'package:readily/splash.dart';
+import 'package:readily/camera.dart';
+import 'package:readily/leaderboard.dart';
 import 'package:flutter/services.dart';
 import 'package:camera/camera.dart';
-import 'package:coutner/login.dart';
-import 'package:coutner/start.dart';
+import 'package:readily/login.dart';
+import 'package:readily/start.dart';
 
 CameraDescription firstCamera;
 

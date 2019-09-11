@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:coutner/password.dart';
-import 'package:coutner/start.dart';
+import 'package:readily/password.dart';
+import 'package:readily/start.dart';
 
 SharedPreferences prefs;
 class SplashScreen extends StatefulWidget {

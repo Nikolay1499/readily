@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coutner/counter.dart';
-import 'package:coutner/main.dart';
+import 'package:readily/counter.dart';
+import 'package:readily/main.dart';
 import 'package:flutter/material.dart';
-import 'package:coutner/record.dart';
-import 'package:coutner/login.dart';
-import 'package:coutner/start.dart';
+import 'package:readily/record.dart';
+import 'package:readily/login.dart';
+import 'package:readily/start.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   @override

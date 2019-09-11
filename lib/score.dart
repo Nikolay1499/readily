@@ -1,10 +1,10 @@
-import 'package:coutner/counter.dart';
-import 'package:coutner/leaderboard.dart';
+import 'package:readily/counter.dart';
+import 'package:readily/leaderboard.dart';
 import 'package:flutter/material.dart';
-import 'package:coutner/firestore.dart';
-import 'package:coutner/main.dart';
+import 'package:readily/firestore.dart';
+import 'package:readily/main.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:coutner/camera.dart';
+import 'package:readily/camera.dart';
 
 class ScoreScreen extends StatefulWidget {
 
@@ -90,7 +90,7 @@ class _ScoreScreenState extends State<ScoreScreen>
           FlareActor("assets/confetti.flr", animation : "boom"):
           FlareActor("assets/stars.flr", animation : "estrellas"),
           Positioned(
-            top: height * 56 / 80,
+            top: height * 57 / 80,
             left: width / 4,
             right: width / 4,
             bottom: height * 16 / 80,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:coutner/login.dart';
-import 'package:coutner/splash.dart';
-import 'package:coutner/counter.dart';
-import 'package:coutner/display.dart';
+import 'package:readily/login.dart';
+import 'package:readily/splash.dart';
+import 'package:readily/counter.dart';
+import 'package:readily/display.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coutner/firestore.dart';
+import 'package:readily/firestore.dart';
 
 String selectedType;
 
@@ -147,7 +147,7 @@ class _StartScreenState extends State<StartScreen> {
                       _ackAlert(context);
                     else
                     {
-                      //prefs.setString("Name", null);
+                      prefs.setString("Name", null);
                       prefs.getString('Name') != null ? 
                         loginRemember()
                       :

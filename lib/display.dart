@@ -2,15 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:coutner/camera.dart';
-import 'package:coutner/main.dart';
-import 'package:coutner/words.dart';
+import 'package:readily/camera.dart';
+import 'package:readily/main.dart';
+import 'package:readily/words.dart';
 import 'package:http/http.dart' as http;
-import 'package:coutner/models.dart';
-import 'package:coutner/key.dart';
+import 'package:readily/models.dart';
+import 'package:readily/key.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:coutner/crop.dart';
+import 'package:readily/crop.dart';
 
   Future<bool> checkInternet() async
   {
@@ -102,7 +102,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
      isWaiting = true; 
     });
 
-    var timer = Timer(Duration(seconds: 10), () {
+    var timer = Timer(Duration(seconds: 20), () {
       _ackAlert(context);
     });
 

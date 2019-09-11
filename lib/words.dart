@@ -1,8 +1,8 @@
-import 'package:coutner/score.dart';
+import 'package:readily/score.dart';
 import 'package:flutter/material.dart';
-import 'package:coutner/camera.dart';
-import 'package:coutner/firestore.dart';
-import 'package:coutner/main.dart';
+import 'package:readily/camera.dart';
+import 'package:readily/firestore.dart';
+import 'package:readily/main.dart';
 
 class WordsScreen extends StatefulWidget {
 

@@ -1,9 +1,9 @@
-import 'package:coutner/camera.dart';
+import 'package:readily/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:coutner/main.dart';
+import 'package:readily/main.dart';
 import 'dart:math' as math;
 import 'package:vibration/vibration.dart';
-import 'package:coutner/start.dart';
+import 'package:readily/start.dart';
 
 AnimationController controller;
 
