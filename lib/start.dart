@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'splash.dart';
-import 'counter.dart';
-import 'display.dart';
+import 'package:coutner/login.dart';
+import 'package:coutner/splash.dart';
+import 'package:coutner/counter.dart';
+import 'package:coutner/display.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'firestore.dart';
+import 'package:coutner/firestore.dart';
 
 String selectedType;
 
@@ -56,6 +56,17 @@ class _StartScreenState extends State<StartScreen> {
     );
   }
 
+  void loginRemember()
+  {
+    name = prefs.getString('Name');
+    email = prefs.getString('Name');
+    Navigator.pushReplacement(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => CountDownTimer(),
+        ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,21 +78,13 @@ class _StartScreenState extends State<StartScreen> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Transform.translate(
-                child: Transform.scale(
-                  child: Image(
-                    image: AssetImage("assets/book.png"),
-                  ),
-                  scale: 1.2,
+              Transform.scale(
+                child: Image(
+                  image: AssetImage("assets/logo.png"),
                 ),
-                offset: Offset(-8, 30),
+                scale: 0.85,
               ),
-              Text("Надчети се",
-                style: TextStyle(
-                  fontSize: 80,
-                  color: Colors.yellow[700],
-                ),
-              ),
+              SizedBox(height: 20,),
               Column(
                 children: [
                   Text("Моля изберете клас:",
@@ -133,7 +136,7 @@ class _StartScreenState extends State<StartScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               RaisedButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
                 color: Colors.cyanAccent,
@@ -144,14 +147,9 @@ class _StartScreenState extends State<StartScreen> {
                       _ackAlert(context);
                     else
                     {
-                      prefs.setString("Name", null);
+                      //prefs.setString("Name", null);
                       prefs.getString('Name') != null ? 
-                        Navigator.pushReplacement(
-                            context, 
-                            MaterialPageRoute(
-                              builder: (context) => CountDownTimer(),
-                            ),
-                        )
+                        loginRemember()
                       :
                         signInWithGoogle().whenComplete(() {
                           if(imageUrl != null)
@@ -163,7 +161,7 @@ class _StartScreenState extends State<StartScreen> {
                               Firestore.instance.collection("leaderboard").document(email);
                             documentReference.snapshots().listen((datasnapshot) {
                               if (!datasnapshot.exists)
-                                createRecord();
+                                createRecord(selectedType);
                             });
                             Navigator.pushReplacement(
                               context, 
@@ -182,12 +180,13 @@ class _StartScreenState extends State<StartScreen> {
                     
                 },
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
                   child: Container(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Text(
                           'Старт',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 40,
                             color: Colors.white,

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/rendering.dart';
 import 'package:image_crop/image_crop.dart';
 import 'package:flutter/material.dart';
-import 'display.dart';
+import 'package:coutner/display.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 
@@ -46,8 +46,20 @@ class _CropScreenState extends State<CropScreen> {
   @override
   Widget build(BuildContext context)
   {
-    return Scaffold(
-      body: _buildCroppingImage(),
+    return WillPopScope(
+      onWillPop: () {
+        return Navigator.pushReplacement(
+                        context, 
+                        MaterialPageRoute(
+                          builder: (context) => 
+                            DisplayPictureScreen(imagePath: widget.image
+                                    , existingList: widget.existingList),
+                        ),
+                      );
+      },
+      child: Scaffold(
+        body: _buildCroppingImage(),
+      ),
     );
   }
 

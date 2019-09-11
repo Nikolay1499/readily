@@ -1,9 +1,9 @@
 import 'package:coutner/camera.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
+import 'package:coutner/main.dart';
 import 'dart:math' as math;
 import 'package:vibration/vibration.dart';
-import 'start.dart';
+import 'package:coutner/start.dart';
 
 AnimationController controller;
 
@@ -51,7 +51,6 @@ class _CountDownTimerState extends State<CountDownTimer>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       drawer: DrawerWidget(activePage: "/CountDownTimer",),
       backgroundColor: Colors.cyan,
       body: AnimatedBuilder(
@@ -62,16 +61,16 @@ class _CountDownTimerState extends State<CountDownTimer>
                 Align(
                   alignment: Alignment.bottomCenter,
                   child:
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: new LinearGradient(
-                        begin: FractionalOffset.topCenter,
-                        end: FractionalOffset.bottomCenter,
-                        colors: [Colors.cyan, Colors.white,],
-                        stops: [0.0, 1.0],
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: new LinearGradient(
+                          begin: FractionalOffset.topCenter,
+                          end: FractionalOffset.bottomCenter,
+                          colors: [Colors.cyan, Colors.white,],
+                          stops: [0.0, 1.0],
+                        ),
                       ),
                     ),
-                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.0),

@@ -37,7 +37,9 @@ class _PasswordScreenState extends State<PasswordScreen>
   @override
   Widget build(BuildContext context) {
   return new Scaffold(
+    resizeToAvoidBottomInset: false,
     body: Container(
+      height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
         gradient: new LinearGradient(
           begin: FractionalOffset.topCenter,
@@ -77,30 +79,30 @@ class _PasswordScreenState extends State<PasswordScreen>
           Text(wrongPass ? "Невалиден код": "",
             style: TextStyle(
               color: Colors.red,
-              fontSize: 54,
+              fontSize: 40,
             ),
           ),
-          SizedBox(height: 40,),
+          SizedBox(height: 25,),
           RaisedButton(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-                color: Colors.cyan[500],
-                onPressed: checkPassword,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: Text(
-                          'Изпрати',
-                          style: TextStyle(
-                            fontSize: 40,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+            color: Colors.cyan[500],
+            onPressed: checkPassword,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
+              child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Text(
+                      'Изпрати',
+                      style: TextStyle(
+                        fontSize: 40,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
+                  )
                 ),
+              ),
+            ),
         ],
       ),
     ),

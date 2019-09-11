@@ -2,15 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'camera.dart';
-import 'main.dart';
-import 'words.dart';
+import 'package:coutner/camera.dart';
+import 'package:coutner/main.dart';
+import 'package:coutner/words.dart';
 import 'package:http/http.dart' as http;
-import 'models.dart';
-import 'key.dart';
+import 'package:coutner/models.dart';
+import 'package:coutner/key.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:connectivity/connectivity.dart';
-import 'crop.dart';
+import 'package:coutner/crop.dart';
 
   Future<bool> checkInternet() async
   {
@@ -191,94 +191,105 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer:  DrawerWidget(activePage: "/DisplayScreen",),
-      backgroundColor: Colors.cyan,
-      body: 
-        !isWaiting ?
-          Transform.translate(
-            offset: Offset(0, 19),
-            child: Container(
-              height: 550,
-              child : Image.file(widget.imagePath),
+    return WillPopScope(
+      onWillPop: () {
+        return Navigator.pushReplacement(
+                        context, 
+                        MaterialPageRoute(
+                          builder: (context) => 
+                            CameraScreen(camera: firstCamera, existingList: widget.existingList),
+                        ),
+                      );
+      },
+      child: Scaffold(
+        drawer:  DrawerWidget(activePage: "/DisplayScreen",),
+        backgroundColor: Colors.cyan,
+        body: 
+          !isWaiting ?
+            Transform.translate(
+              offset: Offset(0, 19),
+              child: Container(
+                height: 550,
+                child : Image.file(widget.imagePath),
+              ),
+            )
+          :
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Изчакайте",
+                    style: TextStyle(
+                      fontSize: 50, 
+                      color: Colors.white
+                    ),
+                  ),
+                  Transform.translate(
+                    offset: Offset(0, 20),
+                    child: SpinKitPouringHourglass(
+                      color: Colors.white, 
+                      size: 200),
+                  ),
+                ],
+              ),
             ),
-          )
-        :
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Transform.translate(
+          offset: Offset(0, -15),
+          child:
+          !isWaiting ?
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Изчакайте",
-                  style: TextStyle(
-                    fontSize: 50, 
-                    color: Colors.white
-                  ),
+                FloatingActionButton(
+                  child: Icon(Icons.check),
+                  onPressed: () {
+                    checkInternet().then((intenet) {
+                      if (intenet != null && intenet) {
+                        readText();
+                      }
+                      else
+                        noInternetPanel(context);
+                    });
+                  },
+                  heroTag: "textTag",
                 ),
-                Transform.translate(
-                  offset: Offset(0, 20),
-                  child: SpinKitPouringHourglass(
-                    color: Colors.white, 
-                    size: 200),
+                SizedBox(width: 40),
+                FloatingActionButton(
+                  heroTag: "crop",
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => 
+                          CropScreen(image: widget.imagePath, 
+                                existingList: widget.existingList,),
+                      ),
+                    );
+                  },
+                  tooltip: 'Crop image',
+                  child: Icon(Icons.crop),
+                ),
+                SizedBox(width: 40),
+                FloatingActionButton(
+                  heroTag: "back",
+                  child: Icon(Icons.clear),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => 
+                          CameraScreen(camera: firstCamera, existingList: widget.existingList),
+                      ),
+                    );
+                  },
                 ),
               ],
-            ),
-          ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Transform.translate(
-        offset: Offset(0, -15),
-        child:
-        !isWaiting ?
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FloatingActionButton(
-                child: Icon(Icons.check),
-                onPressed: () {
-                  checkInternet().then((intenet) {
-                    if (intenet != null && intenet) {
-                      readText();
-                    }
-                    else
-                      noInternetPanel(context);
-                  });
-                },
-                heroTag: "textTag",
-              ),
-              SizedBox(width: 40),
-              FloatingActionButton(
-                heroTag: "crop",
-                onPressed: (){
-                  Navigator.pushReplacement(
-                    context, 
-                    MaterialPageRoute(
-                      builder: (context) => 
-                        CropScreen(image: widget.imagePath, 
-                              existingList: widget.existingList,),
-                    ),
-                  );
-                },
-                tooltip: 'Crop image',
-                child: Icon(Icons.crop),
-              ),
-              SizedBox(width: 40),
-              FloatingActionButton(
-                heroTag: "back",
-                child: Icon(Icons.clear),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context, 
-                    MaterialPageRoute(
-                      builder: (context) => 
-                        CameraScreen(camera: firstCamera, existingList: widget.existingList),
-                    ),
-                  );
-                },
-              ),
-            ],
-          )
-        :
-          null,
+            )
+          :
+            null,
+        ),
       ),
     );
   }

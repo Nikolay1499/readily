@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'counter.dart';
-import 'splash.dart';
-import 'camera.dart';
-import 'leaderboard.dart';
+import 'package:coutner/counter.dart';
+import 'package:coutner/splash.dart';
+import 'package:coutner/camera.dart';
+import 'package:coutner/leaderboard.dart';
 import 'package:flutter/services.dart';
 import 'package:camera/camera.dart';
-import 'login.dart';
-import 'start.dart';
+import 'package:coutner/login.dart';
+import 'package:coutner/start.dart';
 
 CameraDescription firstCamera;
 
@@ -20,6 +20,9 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    )); 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

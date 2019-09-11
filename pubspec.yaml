@@ -33,6 +33,7 @@ dependencies:
   connectivity: ^0.4.4
   cloud_firestore: ^0.12.9+2
   image_crop: ^0.3.1
+  flare_flutter: ^1.5.8
 
 dev_dependencies:
   flutter_test:
@@ -75,14 +76,20 @@ flutter:
     - family: Gayathri
       fonts:
         - asset: fonts/Gayathri-Regular.ttf
+    - family: Comfortaa
+      fonts:
+        - asset: fonts/Comfortaa-Regular.ttf
 
   assets:
     - assets/splash.gif
-    - assets/book.png
     - assets/bronze.png
     - assets/silver.png
     - assets/gold.png
     - assets/star.png
+    - assets/logo.png
+    - assets/book.png
+    - confetti.flr
+    - stars.flr
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

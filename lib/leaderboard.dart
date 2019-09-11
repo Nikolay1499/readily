@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coutner/counter.dart';
 import 'package:coutner/main.dart';
 import 'package:flutter/material.dart';
-import 'record.dart';
-import 'login.dart';
-import 'start.dart';
+import 'package:coutner/record.dart';
+import 'package:coutner/login.dart';
+import 'package:coutner/start.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   @override
@@ -165,90 +166,101 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: DrawerWidget(activePage: "/LeaderboardScreen"),
-      backgroundColor: Colors.cyan,
-      body: 
-      NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              expandedHeight: 280.0,
-              floating: true,
-              backgroundColor: Colors.cyan,
-              pinned: false,
-              flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  background: Container(
-                    alignment: Alignment(0.0, 0),
-                    decoration: BoxDecoration(
-                      gradient: new LinearGradient(
-                        begin: FractionalOffset.topCenter,
-                        end: FractionalOffset.bottomCenter,
-                        colors: [Colors.white, Colors.cyan,],
-                        stops: [0.0, 1.0],
+    return WillPopScope(
+      onWillPop: () {
+        return Navigator.pushReplacement(
+                        context, 
+                        MaterialPageRoute(
+                          builder: (context) => 
+                            CountDownTimer(),
+                        ),
+                      );
+      },
+      child: Scaffold(
+        drawer: DrawerWidget(activePage: "/LeaderboardScreen"),
+        backgroundColor: Colors.cyan,
+        body: 
+        NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                automaticallyImplyLeading: false,
+                expandedHeight: 280.0,
+                floating: true,
+                backgroundColor: Colors.cyan,
+                pinned: false,
+                flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    background: Container(
+                      alignment: Alignment(0.0, 0),
+                      decoration: BoxDecoration(
+                        gradient: new LinearGradient(
+                          begin: FractionalOffset.topCenter,
+                          end: FractionalOffset.bottomCenter,
+                          colors: [Colors.white, Colors.cyan,],
+                          stops: [0.0, 1.0],
+                        ),
+                      ),
+                      child: GestureDetector(
+                        child: Stack(
+                            children: [
+                              Positioned(
+                                child: Transform.scale(
+                                  child:Image(
+                                    image: AssetImage("assets/star.png"),
+                                    alignment: Alignment.center,
+                                  ),
+                                scale: 0.75,
+                                ),
+                              ),
+                              Positioned(
+                                top: 115,
+                                bottom: 0,
+                                right: 0,
+                                left: 0,
+                                child: 
+                                Text(place != null ? place.toString()
+                                  : "0",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 120, 
+                                    color:Colors.white,
+                                  ),
+                                ),  
+                              ),
+                              Positioned(
+                                top: 250,
+                                bottom: 0,
+                                right: 0,
+                                left: 0,
+                                child: Text("МЯСТО",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 50, 
+                                    color:Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        onTap: () {
+                          personalPanel(context);
+                        }, 
                       ),
                     ),
-                    child: GestureDetector(
-                      child: Stack(
-                          children: [
-                            Positioned(
-                              child: Transform.scale(
-                                child:Image(
-                                  image: AssetImage("assets/star.png"),
-                                  alignment: Alignment.center,
-                                ),
-                              scale: 0.75,
-                              ),
-                            ),
-                            Positioned(
-                              top: 115,
-                              bottom: 0,
-                              right: 0,
-                              left: 0,
-                              child: 
-                              Text(place != null ? place.toString()
-                                : "0",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 120, 
-                                  color:Colors.white,
-                                ),
-                              ),  
-                            ),
-                            Positioned(
-                              top: 250,
-                              bottom: 0,
-                              right: 0,
-                              left: 0,
-                              child: Text("МЯСТО",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 50, 
-                                  color:Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      onTap: () {
-                        personalPanel(context);
-                      }, 
-                    ),
-                  ),
+                ),
               ),
-            ),
-          ];
-        },
-        body:
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            
-            Expanded(child: buildBody(context),
-            )
-          ],
+            ];
+          },
+          body:
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              
+              Expanded(child: buildBody(context),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -281,6 +293,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
             children: [
             for(int i = 0; i < scores.length; i++)
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text((i + 1).toString(),
                     style: TextStyle(
@@ -289,16 +302,17 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                       fontFamily: 'Roboto',
                     ),
                   ),
-                  SizedBox(width: 160,),
                   Transform.translate(
                     offset: Offset(0, 8),
                     child: Text(scores[i].toString(),
+                      textAlign: TextAlign.right,
                       style: TextStyle(
                         fontSize: 60,
                         color: Colors.black,
                       ),
                     ),
                   ),
+                  
                 ],
               ), 
                  
