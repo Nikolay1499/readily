@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:readily/login.dart';
+import 'package:readily/size.dart';
 import 'package:readily/splash.dart';
 import 'package:readily/counter.dart';
 import 'package:readily/display.dart';
@@ -15,7 +16,7 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
   
-  List<String> _accountType = <String>[
+List<String> _accountType = <String>[
     '1 клас',
     '2 клас',
     '3 клас',
@@ -70,6 +71,7 @@ class _StartScreenState extends State<StartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: Container(
         color: Colors.cyan,
@@ -78,19 +80,20 @@ class _StartScreenState extends State<StartScreen> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Transform.scale(
+              Container(
+                height: SizeConfig.blockSizeVertical * 50,
+                width: SizeConfig.blockSizeHorizontal * 75,
                 child: Image(
                   image: AssetImage("assets/logo.png"),
                 ),
-                scale: 0.85,
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: SizeConfig.blockSizeVertical * 5,),
               Column(
                 children: [
                   Text("Моля изберете клас:",
                   textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 38,
+                      fontSize: SizeConfig.safeBlockHorizontal * 12,
                       color: Colors.white,
                     ),
                   ),
@@ -105,7 +108,7 @@ class _StartScreenState extends State<StartScreen> {
                                     value,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      fontSize: 35,
+                                      fontSize: SizeConfig.safeBlockHorizontal * 8,
                                       color: Colors.red,
                                     ),
                                   ),
@@ -120,12 +123,12 @@ class _StartScreenState extends State<StartScreen> {
                         value: selectedType,
                         isExpanded: false,
                         hint: Transform.translate(
-                          offset: Offset(25, 0),
+                          offset: Offset(20, 0),
                           child: Text(
                             'Клас',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: SizeConfig.safeBlockHorizontal * 8,
                               color: Colors.white
                             ),
                           ),
@@ -136,7 +139,7 @@ class _StartScreenState extends State<StartScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              SizedBox(height: SizeConfig.blockSizeVertical * 5,),
               RaisedButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
                 color: Colors.cyanAccent,
@@ -188,7 +191,7 @@ class _StartScreenState extends State<StartScreen> {
                           'Старт',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 40,
+                            fontSize: SizeConfig.safeBlockHorizontal * 10,
                             color: Colors.white,
                           ),
                         ),

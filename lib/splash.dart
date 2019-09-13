@@ -36,7 +36,7 @@ class SplashScreenState extends State<SplashScreen>
           builder: (context) => PasswordScreen(),
         ),
       );
-}
+  }
 
   @override
   void initState() {

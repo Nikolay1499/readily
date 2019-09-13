@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:readily/counter.dart';
 import 'package:readily/leaderboard.dart';
 import 'package:flutter/material.dart';
@@ -52,19 +53,20 @@ class _ScoreScreenState extends State<ScoreScreen>
         body: Stack(
         children: [
           Positioned(
-            left: 50,
-            right: 50,
-            top: 50,
-            bottom: 50,
+            left: width / 7.2,
+            right: width / 7.2,
+            top: width / 13.84,
+            bottom: width / 13.84,
             child: Container(
-              alignment: Alignment(0.0, 0.1),
+              alignment: Alignment(0.0, height / (height * 10)),
               decoration: BoxDecoration(
                 color: Colors.yellow[700],
                 shape: BoxShape.circle,
               ),
-              child: Text(
+              child: AutoSizeText(
                 widget.score.toString(),
                 textAlign: TextAlign.center,
+                maxLines: 1,
                 style: TextStyle(
                   fontSize: 200,
                   color: Colors.white,
@@ -73,12 +75,13 @@ class _ScoreScreenState extends State<ScoreScreen>
             ),
           ),
           Positioned(
-            top: 120,
+            top: height / 5.77,
             bottom: 0,
             left: 0,
             right: 0,
-            child: Text(
+            child: AutoSizeText(
               widget.text,
+              maxLines: 1,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 90,
@@ -107,12 +110,13 @@ class _ScoreScreenState extends State<ScoreScreen>
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
+                padding: EdgeInsets.fromLTRB(0, (width / 69.2), 0, (width / 72)),
                 child: Container(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Text(
+                    padding: EdgeInsets.only(left: (width / 36), right: (width / 36)),
+                    child: AutoSizeText(
                       'Отново',
+                      maxLines: 1,
                       style: TextStyle(
                         fontSize: 40,
                         color: Colors.white,
@@ -141,12 +145,13 @@ class _ScoreScreenState extends State<ScoreScreen>
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
+                padding: EdgeInsets.fromLTRB(0, (width / 36), 0, (width / 72)),
                 child: Container(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Text(
+                    padding: EdgeInsets.only(left: (width / 36), right: (width / 36)),
+                    child: AutoSizeText(
                       'Класация',
+                      maxLines: 1,
                       style: TextStyle(
                         fontSize: 40,
                         color: Colors.white,

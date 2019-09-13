@@ -46,25 +46,27 @@ class _CropScreenState extends State<CropScreen> {
   @override
   Widget build(BuildContext context)
   {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () {
         return Navigator.pushReplacement(
-                        context, 
-                        MaterialPageRoute(
-                          builder: (context) => 
-                            DisplayPictureScreen(imagePath: widget.image
-                                    , existingList: widget.existingList),
-                        ),
-                      );
+          context, 
+          MaterialPageRoute(
+            builder: (context) => 
+              DisplayPictureScreen(imagePath: widget.image
+                      , existingList: widget.existingList),
+          ),
+        );
       },
       child: Scaffold(
-        body: _buildCroppingImage(),
+        body: _buildCroppingImage(width, height),
       ),
     );
   }
 
 
-  Widget _buildCroppingImage() {
+  Widget _buildCroppingImage(double width, double height) {
     return Container(
       color: Colors.cyan, 
       child: Column(
@@ -86,7 +88,7 @@ class _CropScreenState extends State<CropScreen> {
                     tooltip: 'Crop image',
                     child: Icon(Icons.save),
                   ),
-                  SizedBox(width: 40),
+                  SizedBox(width: width / 4),
                   FloatingActionButton(
                     heroTag: "back",
                     child: Icon(Icons.clear),

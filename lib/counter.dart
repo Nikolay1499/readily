@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:readily/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:readily/main.dart';
@@ -50,6 +51,7 @@ class _CountDownTimerState extends State<CountDownTimer>
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       drawer: DrawerWidget(activePage: "/CountDownTimer",),
       backgroundColor: Colors.cyan,
@@ -107,18 +109,20 @@ class _CountDownTimerState extends State<CountDownTimer>
                                     children: <Widget>[
                                       Transform.translate(
                                         offset: Offset(0, 15),
-                                        child: Text(
+                                        child: AutoSizeText(
                                           "Оставащо време",
+                                          maxLines: 1,
                                           style: TextStyle(
-                                            fontSize: 55,
+                                            fontSize: height > 600 ? 55 : 50,
                                             color: Colors.white),
                                         ),
                                       ),
                                       
                                       Transform.translate(
                                         offset: Offset(0, -10),
-                                        child: Text(
+                                        child: AutoSizeText(
                                           timerString,
+                                          maxLines: 1,
                                           style: TextStyle(
                                             fontFamily: 'LcDova',
                                             fontSize: 80.0,
@@ -160,8 +164,9 @@ class _CountDownTimerState extends State<CountDownTimer>
                               label:
                                 Transform.translate(
                                   offset: Offset(0, 3),
-                                  child: Text(controller.isAnimating ? 
+                                  child: AutoSizeText(controller.isAnimating ? 
                                         (!paused ? "Пауза" : "Старт") : "Старт", 
+                                    maxLines: 1,
                                     style: TextStyle(fontSize: 30),
                                   ), 
                                 ), 

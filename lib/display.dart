@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:readily/camera.dart';
 import 'package:readily/main.dart';
+import 'package:readily/size.dart';
 import 'package:readily/words.dart';
 import 'package:http/http.dart' as http;
 import 'package:readily/models.dart';
@@ -29,14 +31,16 @@ import 'package:readily/crop.dart';
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Проблем',
+          title: AutoSizeText('Проблем',
+            maxLines: 1,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 50,
             ),
           ),
-          content: Text('Няма връзка с интернет. Моля свържете се ' 
+          content: AutoSizeText('Няма връзка с интернет. Моля свържете се ' 
                       + 'с WiFi или мобилен интернет и опитайте отново!',
+            maxLines: 5,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 35,
@@ -44,7 +48,8 @@ import 'package:readily/crop.dart';
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text('ОК',
+              child: AutoSizeText('ОК',
+                maxLines: 1,
                 style: TextStyle(
                   fontSize: 40,
                 ),
@@ -152,13 +157,15 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Проблем',
+          title: AutoSizeText('Проблем',
+            maxLines: 1,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 50,
             ),
           ),
-          content: Text('Не беше намерен текст в тази снимка! Моля снимайте отново!',
+          content: AutoSizeText('Не беше намерен текст в тази снимка! Моля снимайте отново!',
+            maxLines: 3,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 35,
@@ -166,7 +173,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text('ОК',
+              child: AutoSizeText('ОК',
+                maxLines: 1,
                 style: TextStyle(
                   fontSize: 40,
                 ),
@@ -191,15 +199,18 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () {
         return Navigator.pushReplacement(
-                        context, 
-                        MaterialPageRoute(
-                          builder: (context) => 
-                            CameraScreen(camera: firstCamera, existingList: widget.existingList),
-                        ),
-                      );
+          context, 
+          MaterialPageRoute(
+            builder: (context) => 
+              CameraScreen(camera: firstCamera, existingList: widget.existingList),
+          ),
+        );
       },
       child: Scaffold(
         drawer:  DrawerWidget(activePage: "/DisplayScreen",),
@@ -209,7 +220,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
             Transform.translate(
               offset: Offset(0, 19),
               child: Container(
-                height: 550,
+                height: SizeConfig.blockSizeVertical * 80,
                 child : Image.file(widget.imagePath),
               ),
             )
@@ -219,7 +230,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Изчакайте",
+                  AutoSizeText("Изчакайте",
+                    maxLines: 1,
                     style: TextStyle(
                       fontSize: 50, 
                       color: Colors.white
@@ -255,7 +267,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                   },
                   heroTag: "textTag",
                 ),
-                SizedBox(width: 40),
+                SizedBox(width: width / 9),
                 FloatingActionButton(
                   heroTag: "crop",
                   onPressed: (){
@@ -271,7 +283,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                   tooltip: 'Crop image',
                   child: Icon(Icons.crop),
                 ),
-                SizedBox(width: 40),
+                SizedBox(width: width / 9),
                 FloatingActionButton(
                   heroTag: "back",
                   child: Icon(Icons.clear),

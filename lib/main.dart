@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:readily/counter.dart';
+import 'package:readily/size.dart';
 import 'package:readily/splash.dart';
 import 'package:readily/camera.dart';
 import 'package:readily/leaderboard.dart';
@@ -12,7 +14,6 @@ CameraDescription firstCamera;
 
 Future<void> main() async {
   final cameras = await availableCameras();
- 
   firstCamera = cameras[0];
   runApp(MyApp());
 }
@@ -87,7 +88,8 @@ class _DrawerWidgetState extends State<DrawerWidget>
                       child: Center(
                         child: Transform.translate(
                           offset: Offset(0, 10),
-                          child: Text(name[0], 
+                          child: AutoSizeText(name[0],
+                            maxLines: 1,
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 80)
                           ),
@@ -96,7 +98,11 @@ class _DrawerWidgetState extends State<DrawerWidget>
                     ),
                     Transform.translate(
                       offset: Offset(0, 10),
-                      child: Text(name, style: TextStyle(fontSize: 35))),
+                      child: AutoSizeText(name,
+                        maxLines: 1, 
+                        style: TextStyle(fontSize: 35), 
+                      ),
+                    ),
                   ])),
               color: Colors.cyan,),
             GestureDetector(
@@ -138,7 +144,8 @@ class _DrawerWidgetState extends State<DrawerWidget>
                   leading: Icon(Icons.timer),
                   title: Transform.translate(
                     offset: Offset(-15, 0),
-                    child: Text("Засечи",
+                    child: AutoSizeText("Засечи",
+                      maxLines: 1,
                       style: TextStyle(
                         fontSize: 28,
                       ),
@@ -186,7 +193,8 @@ class _DrawerWidgetState extends State<DrawerWidget>
                   leading: Icon(Icons.camera_alt),
                   title: Transform.translate(
                     offset: Offset(-15, 0),
-                    child: Text("Снимай",
+                    child: AutoSizeText("Снимай",
+                      maxLines: 1,
                       style: TextStyle(
                         fontSize: 28,
                       ),
@@ -235,7 +243,8 @@ class _DrawerWidgetState extends State<DrawerWidget>
                   leading: Icon(Icons.star),
                   title: Transform.translate(
                     offset: Offset(-15, 0),
-                    child: Text("Класация",
+                    child: AutoSizeText("Класация",
+                      maxLines: 1,
                       style: TextStyle(
                         fontSize: 28,
                       ),
@@ -289,7 +298,8 @@ class _DrawerWidgetState extends State<DrawerWidget>
                         leading: Icon(Icons.reply),
                         title: Transform.translate(
                           offset: Offset(-10, 0),
-                          child: Text("Изход",
+                          child: AutoSizeText("Изход",
+                            maxLines: 1,
                             style: TextStyle(
                               fontSize: 28,
                             ),

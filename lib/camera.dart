@@ -4,6 +4,7 @@ import 'package:readily/display.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:readily/size.dart';
 import 'package:readily/words.dart';
 import 'package:readily/main.dart';
 import 'package:readily/counter.dart';
@@ -45,17 +46,19 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
+    SizeConfig().init(context);
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
   
     return WillPopScope(
       onWillPop: () {
         return Navigator.pushReplacement(
-                        context, 
-                        MaterialPageRoute(
-                          builder: (context) => 
-                            CountDownTimer(),
-                        ),
-                      );
+          context, 
+          MaterialPageRoute(
+            builder: (context) => 
+              CountDownTimer(),
+          ),
+        );
       },
       child: Scaffold(
         backgroundColor: Colors.cyan,
@@ -63,7 +66,7 @@ class _CameraScreenState extends State<CameraScreen> {
         body: Transform.translate(
           offset: Offset(0, 24),
           child: Container(
-            height: 550,
+            height: SizeConfig.blockSizeVertical * 80,
             child: FutureBuilder<void>(
               future: _initializeControllerFuture,
               builder: (context, snapshot) {
@@ -130,7 +133,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   },
                   heroTag: "photo",
                 ),
-                SizedBox(width: 100),
+                SizedBox(width: width / 3.6),
                 FloatingActionButton(
                   heroTag: "back",
                   child: Icon(Icons.arrow_back),

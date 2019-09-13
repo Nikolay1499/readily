@@ -1,9 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:readily/counter.dart';
 import 'package:readily/main.dart';
 import 'package:flutter/material.dart';
 import 'package:readily/record.dart';
 import 'package:readily/login.dart';
+import 'package:readily/size.dart';
 import 'package:readily/start.dart';
 
 class LeaderboardScreen extends StatefulWidget {
@@ -82,7 +84,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
           ),
           title: Transform.translate(
             offset: Offset(-15, 0),
-            child: Text(record.name,
+            child: AutoSizeText(record.name,
+              maxLines: 1,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 30,     
@@ -91,14 +94,16 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
           ),
           subtitle: Transform.translate(
             offset: Offset(-15, -5),
-            child: Text(record.email,
+            child: AutoSizeText(record.email,
+              maxLines: 1,
               style: TextStyle(
                 fontSize: 15,
                 fontFamily: "Gayathri",  
               ),
             ),
           ),
-          trailing: Text(record.bestScore.toString(),
+          trailing: AutoSizeText(record.bestScore.toString(),
+            maxLines: 1,
             style: TextStyle(
               fontSize: 30,
               color: Colors.white,
@@ -119,7 +124,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                 image: AssetImage(path),
               ),
             ),
-            Text((index + 1).toString(),
+            AutoSizeText((index + 1).toString(),
+              maxLines: 1,
               style: TextStyle(
                 fontSize: 23,
                 color: Colors.black,
@@ -150,7 +156,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
       break;
       default:
       {
-        return Text((index + 1).toString(),
+        return AutoSizeText((index + 1).toString(),
+          maxLines: 1,
           style: TextStyle(
             fontSize: 23,
             color: Colors.black,
@@ -166,15 +173,18 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () {
         return Navigator.pushReplacement(
-                        context, 
-                        MaterialPageRoute(
-                          builder: (context) => 
-                            CountDownTimer(),
-                        ),
-                      );
+          context, 
+          MaterialPageRoute(
+            builder: (context) => 
+              CountDownTimer(),
+          ),
+        );
       },
       child: Scaffold(
         drawer: DrawerWidget(activePage: "/LeaderboardScreen"),
@@ -210,36 +220,24 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                                     image: AssetImage("assets/star.png"),
                                     alignment: Alignment.center,
                                   ),
-                                scale: 0.75,
+                                scale: 0.85,
                                 ),
                               ),
                               Positioned(
-                                top: 115,
+                                top: 95,
                                 bottom: 0,
-                                right: 0,
+                                right: 8,
                                 left: 0,
                                 child: 
-                                Text(place != null ? place.toString()
+                                AutoSizeText(place != null ? place.toString()
                                   : "0",
+                                  maxLines: 1,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 120, 
                                     color:Colors.white,
                                   ),
                                 ),  
-                              ),
-                              Positioned(
-                                top: 250,
-                                bottom: 0,
-                                right: 0,
-                                left: 0,
-                                child: Text("МЯСТО",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 50, 
-                                    color:Colors.white,
-                                  ),
-                                ),
                               ),
                             ],
                           ),
@@ -276,7 +274,12 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
     scores.sort();
     Iterable inReverse = scores.reversed;
     scores = inReverse.toList();
-
+    print(SizeConfig.screenHeight);
+    int substract;
+    if(SizeConfig.screenHeight > 600)
+      substract = ((SizeConfig.screenHeight + 50) / 100).round() + 3;
+    else
+      substract = ((SizeConfig.screenHeight + 50) / 100).round() - 1;
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -286,7 +289,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
             textAlign: TextAlign.center,
             style: TextStyle(
               height: 0.75,
-              fontSize: 60,
+              fontSize: SizeConfig.blockSizeHorizontal * SizeConfig.screenHeight / 39 - substract,
             ),
           ),
           content: Column(
@@ -297,17 +300,19 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                 children: [
                   Text((i + 1).toString(),
                     style: TextStyle(
-                      fontSize: 50,
+                      fontSize: SizeConfig.blockSizeHorizontal 
+                                  * SizeConfig.screenHeight / 39 - substract - 1,
                       color: Colors.black,
                       fontFamily: 'Roboto',
                     ),
                   ),
                   Transform.translate(
-                    offset: Offset(0, 8),
+                    offset: Offset(0, 12),
                     child: Text(scores[i].toString(),
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                        fontSize: 60,
+                        fontSize: SizeConfig.blockSizeHorizontal 
+                                  * SizeConfig.screenHeight / 39 - substract,
                         color: Colors.black,
                       ),
                     ),

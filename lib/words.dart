@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:readily/score.dart';
 import 'package:flutter/material.dart';
 import 'package:readily/camera.dart';
@@ -140,6 +141,8 @@ class _WordsScreenState extends State<WordsScreen>
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () {
         return Navigator.pushReplacement(
@@ -167,9 +170,10 @@ class _WordsScreenState extends State<WordsScreen>
                         margin: const EdgeInsets.only(top: 0.0, bottom : 15),
                         alignment: Alignment.center,
                         color: Colors.cyan,
-                        child: Text(
+                        child: AutoSizeText(
                           "Изберете  първата" + "\n" + "и последната" 
                                     + "\n" + "прочетена дума",
+                          maxLines: 3,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             height: 0.90,
@@ -205,7 +209,7 @@ class _WordsScreenState extends State<WordsScreen>
                   );
                 },
               ),
-              SizedBox(width: 100,),
+              SizedBox(width: width / 3.6,),
               FloatingActionButton(
                 heroTag: "getResult",
                 child: Icon(Icons.public, size: 20,),
@@ -219,7 +223,7 @@ class _WordsScreenState extends State<WordsScreen>
           :
           FloatingActionButton(
             heroTag: "addPhoto",
-            child: Icon(Icons.add_a_photo, size: 20,),
+            child: Icon(Icons.add_a_photo, size: width / 18,),
             onPressed: () {
               Navigator.pushReplacement(
                 context, 
