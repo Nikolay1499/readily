@@ -64,6 +64,54 @@ class _DrawerWidgetState extends State<DrawerWidget>
     super.initState();
   }
 
+  Future<void> _privacy(BuildContext context) {
+    String text = 'Приложението "Надчети се" е предвидено за Основно училище "Христо Ботев" село Брестовица ' 
+                + 'с цел използване от техните ученици. ' 
+                + 'Информираме ви, че приложението събира информация за потребителите си! ' 
+                + 'Личната информация е: вашите имена, имейл и клас на ученика. Друга информация са вашите резултати! '
+                + 'Събраната информация не се разпространява и единственото и приложение е за изготвяне '
+                + 'на класациите на потребителите! При желание за премахване на данните ви от системата моля пишете на '
+                + 'имейлът посочен в страницата на приложението в Google Play!';
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: AutoSizeText('Поверителност на данните и условия',
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 50,
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: new ConstrainedBox(
+                constraints: BoxConstraints(),
+                  child: Text(text,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 35,
+                    ),
+                  ),
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: AutoSizeText('Приемам условията',
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 40,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context)
@@ -78,20 +126,23 @@ class _DrawerWidgetState extends State<DrawerWidget>
               child: new DrawerHeader(
                 child: Column(
                   children: [
-                    new Container(
+                    Container(
                       width: 90.0,
                       height: 90.0,
                       decoration: BoxDecoration(
                         color: Colors.yellow[700],
                         shape: BoxShape.circle,
                       ),
-                      child: Center(
-                        child: Transform.translate(
-                          offset: Offset(0, 10),
-                          child: AutoSizeText(name[0],
-                            maxLines: 1,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 80)
+                      child: GestureDetector(
+                        onTap: () => _privacy(context),
+                        child: Center(
+                          child: Transform.translate(
+                            offset: Offset(0, 10),
+                            child: AutoSizeText(name[0],
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 80)
+                            ),
                           ),
                         ),
                       ),
